@@ -9,5 +9,6 @@ bin-int/
 *.vcxproj.filters
 *.sln
 
-# Exclude
+# Include
 !vendor/bin
+!vendor/cpr/bin

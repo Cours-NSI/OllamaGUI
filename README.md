@@ -21,12 +21,12 @@ Your project uses the following dependencies (located in the `vendor/` folder):
 
 To get started with this project, first make sure you have [Visual Studio 2022](https://visualstudio.microsoft.com/) installed. Then ruun the following commands:
 ```bash
-git clone --recursive htpps://github.com/SAMSAM-55/OllamaGUI.git
+git clone --recursive https://github.com/SAMSAM-55/OllamaGUI.git
 cd OllamaGUI/scripts
 .\Setup-OllamaGUI.bat
 ```
 
-Finally, when you build, you will have to copy the .dll from `vendor/cpr/lib` ( from `Debug` or `Release` sub-folder depending on your configuration) in order to get rid of the error : "cpr.dll" can't be found.
+Finally, when you build, you will have to copy the .dll from `vendor/cpr/bin` ( from `Debug` or `Release` sub-folder depending on your configuration) in order to get rid of the error : "cpr.dll" can't be found.
 
 ## License
 
