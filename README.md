@@ -21,7 +21,7 @@ Your project uses the following dependencies (located in the `vendor/` folder):
 
 To get started with this project, first make sure you have [Visual Studio 2022](https://visualstudio.microsoft.com/) installed. Then ruun the following commands:
 ```bash
-git clone --recursive htpps://github.com/SAMSAM5-5/OllamaGUI.git
+git clone --recursive htpps://github.com/SAMSAM-55/OllamaGUI.git
 cd OllamaGUI/scripts
 .\Setup-OllamaGUI.bat
 ```
