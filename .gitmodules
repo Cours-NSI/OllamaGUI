@@ -21,8 +21,8 @@
 [submodule "vendor/yaml-cpp"]
 	path = vendor/yaml-cpp
 	url = https://github.com/TheCherno/yaml-cpp
-[submodule "vendor/nlohmann/json"]
-	path = vendor/nlohmann/json
+[submodule "vendor/nlohmann-json"]
+	path = vendor/nlohmann-json
 	url = https://github.com/nlohmann/json
 [submodule "Walnut-Modules/Walnut-Networking"]
 	path = Walnut-Modules/Walnut-Networking

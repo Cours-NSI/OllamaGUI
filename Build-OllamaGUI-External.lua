@@ -1,4 +1,4 @@
--- WalnutExternal.lua
+-- OllamaGUIExternal.lua
 
 VULKAN_SDK = os.getenv("VULKAN_SDK")
 
@@ -8,13 +8,15 @@ IncludeDir["glm"] = "../vendor/glm"
 IncludeDir["spdlog"] = "../vendor/spdlog/include"
 IncludeDir["base64"] = "../vendor/base64/include"
 IncludeDir["cpr"] = "../vendor/cpr/include"
-IncludeDir["nlohmann_json"] = "../vendor/nlohmann_json/include"
+IncludeDir["nlohmann-json"] = "../vendor/nlohmann-json/include"
 
 LibraryDir = {}
 LibraryDir["VulkanSDK"] = "%{VULKAN_SDK}/Lib"
+LibraryDir["cpr"] = "../vendor/cpr/lib/%{cfg.buildcfg}"
 
 Library = {}
 Library["Vulkan"] = "%{LibraryDir.VulkanSDK}/vulkan-1.lib"
+Library["cpr"] = "%{LibraryDir.cpr}/cpr.lib"
 
 group "Dependencies"
     include "vendor/imgui"
@@ -30,14 +32,3 @@ group "Core"
         include "Walnut-Modules/Walnut-Networking/Build-Walnut-Networking.lua"
     end
 group ""
-
--- Configuration-specific linking for CPR
-filter "configurations:Debug"
-    libdirs { "../vendor/cpr/lib/debug" }
-    links { "cpr" }
-
-filter "configurations:Release"
-    libdirs { "../vendor/cpr/lib/release" }
-    links { "cpr" }
-
-filter {}

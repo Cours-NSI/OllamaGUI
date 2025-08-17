@@ -12,7 +12,7 @@ project "OllamaGUI"
       "../vendor/imgui",
       "../vendor/glfw/include",
       "../vendor/base64/include",
-      "../vendor/nlohmann_json/include",
+      "../vendor/nlohmann-json/include",
       "../vendor/cpr/include",
 
       "../Walnut/Source",
@@ -36,17 +36,23 @@ project "OllamaGUI"
       buildoptions { "/utf-8" }
 
    filter "configurations:Debug"
+      libdirs { "../vendor/cpr/lib/Debug" }
+      links { "cpr.lib" }
       defines { "WL_DEBUG" }
       runtime "Debug"
       symbols "On"
 
    filter "configurations:Release"
+      libdirs { "../vendor/cpr/lib/Release" }
+      links { "cpr.lib" }
       defines { "WL_RELEASE" }
       runtime "Release"
       optimize "On"
       symbols "On"
 
    filter "configurations:Dist"
+      libdirs { "../vendor/cpr/lib/Release" }
+      links { "cpr.lib" }
       kind "WindowedApp"
       defines { "WL_DIST" }
       runtime "Release"
