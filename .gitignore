@@ -9,6 +9,10 @@ bin-int/
 *.vcxproj.filters
 *.sln
 
+# Developpement files
+OllamaGUI/chats
+OllamaGUI/imgui.ini
+
 # Include
 !vendor/bin
 !vendor/cpr/bin
