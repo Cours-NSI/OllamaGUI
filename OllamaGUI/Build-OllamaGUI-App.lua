@@ -5,7 +5,7 @@ project "OllamaGUI"
    targetdir "bin/%{cfg.buildcfg}"
    staticruntime "off"
 
-   files { "src/**.h", "src/**.cpp" }
+   files { "src/**.h", "src/**.cpp", "src/**.hpp" }
 
    includedirs
    {
@@ -30,6 +30,13 @@ project "OllamaGUI"
    targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
    objdir ("../bin-int/" .. outputdir .. "/%{prj.name}")
 
+   -- Visual Studio filters
+	vpaths
+	{
+		["OllamaAPI"] = { "src/OllamaAPI/**" },
+      ["Core"] = { "src/**.h", "src/**.cpp"}
+	}
+
    filter "system:windows"
       systemversion "latest"
       defines { "WL_PLATFORM_WINDOWS" }
@@ -41,6 +48,12 @@ project "OllamaGUI"
       defines { "WL_DEBUG" }
       runtime "Debug"
       symbols "On"
+      postbuildcommands {
+         "if not exist \"$(ProjectDir)chats\" mkdir \"$(ProjectDir)chats\"",
+         "{COPY} ../vendor/cpr/bin/Debug/cpr.dll %{cfg.targetdir}",
+         "{COPY} ../vendor/cpr/bin/Debug/libcurl-d.dll %{cfg.targetdir}",
+         "{COPY} ../vendor/cpr/bin/Debug/zlibd1.dll %{cfg.targetdir}"
+      }
 
    filter "configurations:Release"
       libdirs { "../vendor/cpr/lib/Release" }
@@ -49,6 +62,12 @@ project "OllamaGUI"
       runtime "Release"
       optimize "On"
       symbols "On"
+      postbuildcommands {
+         "if not exist \"$(ProjectDir)chats\" mkdir \"$(ProjectDir)chats\"",
+         "{COPY} ../vendor/cpr/bin/Release/cpr.dll %{cfg.targetdir}",
+         "{COPY} ../vendor/cpr/bin/Release/libcurl.dll %{cfg.targetdir}",
+         "{COPY} ../vendor/cpr/bin/Release/zlib1.dll %{cfg.targetdir}"
+      }
 
    filter "configurations:Dist"
       libdirs { "../vendor/cpr/lib/Release" }
