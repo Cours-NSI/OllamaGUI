@@ -77,3 +77,9 @@ project "OllamaGUI"
       runtime "Release"
       optimize "On"
       symbols "Off"
+      postbuildcommands {
+         "if not exist \"$(ProjectDir)chats\" mkdir \"$(ProjectDir)chats\"",
+         "{COPY} ../vendor/cpr/bin/Release/cpr.dll %{cfg.targetdir}",
+         "{COPY} ../vendor/cpr/bin/Release/libcurl.dll %{cfg.targetdir}",
+         "{COPY} ../vendor/cpr/bin/Release/zlib1.dll %{cfg.targetdir}"
+      }
