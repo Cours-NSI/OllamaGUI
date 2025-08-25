@@ -15,7 +15,7 @@ This project uses the following dependencies (located in the `vendor/` folder):
 - [cpr](vendor/cpr): C++ Requests: HTTP client library
 - [nlohmann-json](vendor/nlohmann-json): JSON for Modern C++
 - [stb_image](vendor/stb_image): Image loading library
-- [Walnut](Walnut/Source/Walnut/): Desktop Apllication framework made using imgui
+- [Walnut](Walnut/Source/Walnut/): Desktop Aplication framework made using imgui
 
 ## Getting Started
 
