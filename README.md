@@ -4,7 +4,7 @@ A graphical user interface application built with C++ to run Large Language Mode
 
 ## Dependencies
 
-Your project uses the following dependencies (located in the `vendor/` folder):
+This project uses the following dependencies (located in the `vendor/` folder):
 
 - [imgui](vendor/imgui): Dear ImGui (UI library)
 - [GLFW](vendor/GLFW): Window/context/input management
@@ -19,7 +19,7 @@ Your project uses the following dependencies (located in the `vendor/` folder):
 
 ## Getting Started
 
-To get started with this project, first make sure you have [Visual Studio 2022](https://visualstudio.microsoft.com/) installed. Then ruun the following commands:
+To get started with this project, first make sure you have [Visual Studio 2022](https://visualstudio.microsoft.com/) installed. Then run the following commands:
 ```bash
 git clone --recursive https://github.com/SAMSAM-55/OllamaGUI.git
 cd OllamaGUI/scripts
