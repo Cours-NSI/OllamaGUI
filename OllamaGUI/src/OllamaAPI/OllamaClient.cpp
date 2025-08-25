@@ -56,7 +56,7 @@ void OllamaClient::GenerateAnswer(const OllamaChat& chat) {
 	}
 
 	nlohmann::json payload = {
-		{"model", "deepseek-r1:8b"},
+		{"model", chat.GetModel()},
 		{"messages", messages}
 	};
 
@@ -75,4 +75,9 @@ void OllamaClient::GenerateAnswer(const OllamaChat& chat) {
 		);
 	}).detach(); // run without blocking UI
 
+}
+
+std::vector<std::string> OllamaClient::GetModelsList() const
+{
+	return m_modelsList;
 }

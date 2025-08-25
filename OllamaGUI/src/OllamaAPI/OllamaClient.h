@@ -20,6 +20,7 @@ public:
 
 	void ShowModelsList() const;
 	void GenerateAnswer(const OllamaChat& chat);
+	std::vector<std::string> GetModelsList() const;
 
 private:
 	std::vector<std::string> m_modelsList;

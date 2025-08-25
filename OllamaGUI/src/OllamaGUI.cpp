@@ -21,9 +21,7 @@ public:
 	bool debugDone = false;
 
     OllamaGUI()
-	{ 
-		std::cout << "Hello from layer" << std::endl;
-
+	{
 		std::string path("./chats");
 		std::string ext(".chat");
 		for (auto& p : std::filesystem::recursive_directory_iterator(path))
@@ -57,10 +55,6 @@ public:
 			}
 		}
 		
-		ImGui::End();
-
-		ImGui::Begin("Test Chat");
-
 		for (OllamaChat& chat : chatList)
 		{
 			ImGui::Begin(chat.GetName().c_str());
@@ -78,8 +72,7 @@ public:
 				OllamaUtils::RenderChatWindow(chat.GetModel(), chat.GetChatHistory());
 
 			static char buffer[1024 * 4] = "";
-
-			if (ImGui::InputTextMultiline("ChatInput", buffer, IM_ARRAYSIZE(buffer),
+			if (ImGui::InputTextMultiline("##Chat Input", buffer, IM_ARRAYSIZE(buffer),
 				ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 5),
 				ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CtrlEnterForNewLine | ImGuiInputTextFlags_EnterReturnsTrue))
 			{
@@ -101,6 +94,8 @@ public:
 
 			ImGui::End();
 
+			ImGui::ShowDemoWindow();
+
 			// Debug
 			if (debugDone)
 				continue;
@@ -117,10 +112,9 @@ public:
 		}
 
 		ImGui::End();
-
-		ImGui::ShowDemoWindow();
 		
 		UI_DrawAboutModal();
+		UI_DrawCreateChat();
 	}
 
 	void UI_DrawAboutModal()
@@ -153,12 +147,82 @@ public:
 		}
 	}
 
+	void UI_DrawCreateChat()
+	{
+		if (!m_CreateChatOpen)
+			return;
+
+		ImGui::OpenPopup("Create Chat");
+		m_CreateChatOpen = ImGui::BeginPopupModal("Create Chat", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+		if (m_CreateChatOpen)
+		{
+			static char buffer[1024 * 4] = "";
+			static int selectedModel = 0;
+			std::vector<std::string> models = client.GetModelsList();
+
+			if (ImGui::InputTextWithHint("##Chat Name", "Chat Name", buffer, IM_ARRAYSIZE(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
+			{
+				m_CreateChatOpen = false;
+				ImGui::CloseCurrentPopup();
+				std::ofstream file("./chats/" + base64::to_base64(buffer) + ".chat");
+				chatFiles.push_back(std::filesystem::directory_entry("./chats/" + base64::to_base64(buffer) + ".chat"));
+				std::string content = "<Model>\n";
+				content += models[selectedModel];
+				content += "\n</Model>\n<Chat History>\n</Chat History>";
+				file << base64::to_base64(content);
+				buffer[0] = '\0';
+			}
+
+			if (ImGui::Button("Select Model.."))
+				ImGui::OpenPopup("model_selection_popup");
+			ImGui::SameLine();
+			ImGui::Text(models[selectedModel].c_str());
+
+			if (ImGui::BeginPopup("model_selection_popup"))
+			{	
+				ImGui::Text("Model");
+				ImGui::Separator();
+				for (int i = 0; i < models.size(); i++)
+					if (ImGui::Selectable(models[i].c_str()))
+						selectedModel = i;
+				ImGui::EndPopup();
+			}
+
+			if (ImGui::Button("Cancel"))
+			{
+				m_CreateChatOpen = false;
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::SameLine();
+			bool createButton = Walnut::UI::ButtonLeft("Create");
+			if (buffer[0] != '\0' && createButton)
+			{
+				m_CreateChatOpen = false;
+				ImGui::CloseCurrentPopup();
+				std::ofstream file("./chats/" + base64::to_base64(buffer) + ".chat");
+				chatFiles.push_back(std::filesystem::directory_entry("./chats/" + base64::to_base64(buffer) + ".chat"));
+				std::string content = "<Model>\n";			
+				content += models[selectedModel];
+				content += "\n</Model>\n<Chat History>\n</Chat History>";
+				file << base64::to_base64(content);
+				buffer[0] = '\0';
+			}
+			ImGui::EndPopup();
+		}
+	}
+
 	void ShowAboutModal()
 	{
 		m_AboutModalOpen = true;
 	}
+
+	void ShowCreateChat()
+	{
+		m_CreateChatOpen = true;
+	}
 private:
 	bool m_AboutModalOpen = false;
+	bool m_CreateChatOpen = false;
 };
 
 Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
@@ -184,7 +248,7 @@ Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
 
 			if (ImGui::MenuItem("New Chat"))
 			{
-
+				appLayer->ShowCreateChat();
 			}
 			ImGui::EndMenu();
 		}

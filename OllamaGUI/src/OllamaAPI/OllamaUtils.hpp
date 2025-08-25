@@ -62,9 +62,37 @@ namespace OllamaUtils {
         );
     }
 
-
-    inline OllamaParsingResult ParseModelAnswer(const std::string& answer)
+    inline bool IsModelThinking(std::string model)
     {
+        nlohmann::json payload = {
+            {"model", model}
+        };
+
+        cpr::Response response = cpr::Post(cpr::Url{ "http://localhost:11434/api/show" },
+            cpr::Header{ {"Content-Type", "application/json"} },
+            cpr::Body{ payload.dump() }
+        );
+
+        if (response.status_code != 200)
+            return false;
+
+        nlohmann::json data = nlohmann::json::parse(response.text);
+
+        if (data.contains("capabilities") && data["capabilities"].is_array())
+            for (const auto& cap : data["capabilities"])
+                if (cap == "thinking")
+                {
+                    return true;
+                    break;
+                }
+        return false;
+    }
+
+    inline OllamaParsingResult ParseModelAnswer(const std::string& answer, const std::string& model = "")
+    {
+        if (!IsModelThinking(model))
+            return { "", answer };
+
         std::stringstream ss[2];
         ParsingSection section = ParsingSection::NONE;
 
@@ -94,7 +122,7 @@ namespace OllamaUtils {
         const std::vector<OllamaChat::ChatItem>& history = chatHistory;
 
         // Container for the chat messages
-        ImGui::BeginChild("ChatBox", ImVec2(0, -ImGui::GetFrameHeightWithSpacing() - (ImGui::GetTextLineHeight() * 5) - 10), true, ImGuiWindowFlags_HorizontalScrollbar);
+        ImGui::BeginChild("ChatBox", ImVec2(0, -ImGui::GetFrameHeightWithSpacing() - (ImGui::GetTextLineHeight() * 5) ), true);
 
         for (int i = 0; i < history.size(); ++i) {
             const auto& item = history[i];
@@ -103,7 +131,7 @@ namespace OllamaUtils {
             OllamaParsingResult message = { std::string(), item.message };
 
             if (item.role == OllamaChat::Role::ASSISTANT)
-                message = ParseModelAnswer(item.message);
+                message = ParseModelAnswer(item.message, model);
 
             float totalHeight = ImGui::CalcTextSize(item.message.c_str()).y + ImGui::GetTextLineHeightWithSpacing() * 2 + 5; // Add extra margin for separator
 
