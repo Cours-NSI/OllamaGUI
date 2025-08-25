@@ -12,6 +12,7 @@ bin-int/
 # Developpement files
 OllamaGUI/chats
 OllamaGUI/imgui.ini
+OllamaGUI/logs
 
 # Include
 !vendor/bin
