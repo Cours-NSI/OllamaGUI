@@ -23,10 +23,8 @@ To get started with this project, first make sure you have [Visual Studio 2022](
 ```bash
 git clone --recursive https://github.com/SAMSAM-55/OllamaGUI.git
 cd OllamaGUI/scripts
-.\Setup-OllamaGUI.bat
+.\Setup-Project.bat
 ```
-
-Finally, when you build, you will have to copy the .dll from `vendor/cpr/bin` ( from `Debug` or `Release` sub-folder depending on your configuration) in order to get rid of the error : "cpr.dll" can't be found.
 
 ## License
 
