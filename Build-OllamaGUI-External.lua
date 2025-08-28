@@ -6,9 +6,6 @@ IncludeDir = {}
 IncludeDir["VulkanSDK"] = "%{VULKAN_SDK}/Include"
 IncludeDir["glm"] = "../vendor/glm"
 IncludeDir["spdlog"] = "../vendor/spdlog/include"
-IncludeDir["base64"] = "../vendor/base64/include"
-IncludeDir["cpr"] = "../vendor/cpr/include"
-IncludeDir["nlohmann-json"] = "../vendor/nlohmann-json/include"
 
 LibraryDir = {}
 LibraryDir["VulkanSDK"] = "%{VULKAN_SDK}/Lib"
@@ -22,10 +19,12 @@ group "Dependencies"
     include "vendor/imgui"
     include "vendor/glfw"
     include "vendor/yaml-cpp"
+    include "vendor/cpr"
 group ""
 
 group "Core"
     include "Walnut/Build-Walnut.lua"
+    include "OllamaAPI/Build-OllamaAPI.lua"
 
     -- Optional modules
     if os.isfile("Walnut-Modules/Walnut-Networking/Build-Walnut-Networking.lua") then
