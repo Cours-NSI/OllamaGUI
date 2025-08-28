@@ -15,7 +15,7 @@ This project uses the following dependencies (located in the `vendor/` folder):
 - [cpr](vendor/cpr): C++ Requests: HTTP client library
 - [nlohmann-json](vendor/nlohmann-json): JSON for Modern C++
 - [stb_image](vendor/stb_image): Image loading library
-- [Walnut](Walnut/Source/Walnut/): Desktop Aplication framework made using imgui
+- [Walnut](Walnut/Source/Walnut/): Desktop Application framework made using `Dear ImGui`
 
 ## Getting Started
 
@@ -25,6 +25,21 @@ git clone --recursive https://github.com/SAMSAM-55/OllamaGUI.git
 cd OllamaGUI/scripts
 .\Setup-Project.bat
 ```
+
+## Planned Features
+
+Planned features before beta v0.1:
+- Logging system
+- System prompt modification to customize models
+- Auto docking for `Chats List` and all chats windows
+- Locked docking layout for release builds
+
+## Currently working on
+*Note: this section may not always be up to date; the last updated date is always included*
+
+**(28/08/2025)**
+\
+Currently working won a logging system based on spdlog and inspired by Walnut's wrapper aroun it. 
 
 ## License
 
