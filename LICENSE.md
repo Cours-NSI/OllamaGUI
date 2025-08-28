@@ -394,7 +394,7 @@ SOFTWARE.
 
 ### zlib (zlib License)
 
-Copyright (C) 1995-2022 Jean-loup Gailly and Mark Adler
+Copyright (C) 1995-2024 Jean-loup Gailly and Mark Adler
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
@@ -416,17 +416,3 @@ freely, subject to the following restrictions:
 
 Jean-loup Gailly        Mark Adler
 jloup@gzip.org          madler@alumni.caltech.edu
-
----
-
-## License Summary
-
-This project combines multiple open-source components under various compatible licenses:
-
-- **MIT License**: OllamaGUI (main project), base64, cpr, Dear ImGui, nlohmann/json, spdlog, Walnut, WalnutNetworking, yaml-cpp
-- **BSD-3-Clause License**: GameNetworkingSockets, Premake
-- **zlib License**: GLFW, zlib
-- **curl License**: curl (with additional BSD-3-Clause and ISC licensed components)
-- **Happy Bunny License or MIT License**: GLM (dual licensed)
-
-All dependencies are external third-party libraries and retain their original copyright and license terms as specified above.
