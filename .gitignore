@@ -14,6 +14,9 @@ OllamaGUI/chats
 OllamaGUI/imgui.ini
 OllamaGUI/logs
 
+# Developpement version of setup script
+scripts/Setup-Project_dev.bat
+
 # Include
 !vendor/bin
 !vendor/cpr/bin
