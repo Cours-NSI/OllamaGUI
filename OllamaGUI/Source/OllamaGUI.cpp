@@ -22,7 +22,6 @@ public:
 	std::vector<OllamaChat> chatList;
 	std::vector<std::filesystem::directory_entry> chatFiles;
 	bool wasClientBusy = false;
-	bool debugDone = false;
 	OllamaCore::Log logger;
 
     OllamaGUI()
@@ -111,13 +110,6 @@ public:
 
 			ImGui::ShowDemoWindow();
 
-		}
-
-		// Debug
-		if (!debugDone)
-		{
-			OllamaChat test("./chats/", "nothing");
-			debugDone = true;
 		}
 
 		ImGui::End();
