@@ -40,7 +40,7 @@ Planned features before beta v0.1:
 ## Currently working on
 *Note: this section may not always be up to date; the last updated date is always included*
 
-**(28/08/2025)**
+**(31/08/2025)**
 \
 Currently working on auto/forced docking for ImGui windows. 
 
