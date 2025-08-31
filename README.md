@@ -42,7 +42,7 @@ Planned features before beta v0.1:
 
 **(28/08/2025)**
 \
-Currently working won a logging system based on spdlog and inspired by Walnut's wrapper aroun it. 
+Currently working on auto/forced docking for ImGui windows. 
 
 ## License
 
