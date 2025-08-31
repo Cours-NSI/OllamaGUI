@@ -17,9 +17,14 @@ This project uses the following dependencies (located in the `vendor/` folder):
 - [stb_image](vendor/stb_image): Image loading library
 - [Walnut](Walnut/Source/Walnut/): Desktop Application framework made using `Dear ImGui`
 
+## Prerequisities
+To start developping with this project, make sure you have the following softwares installed :
+- [Visual Studio](https://visualstudio.microsoft.com)
+- [Ollama](https://ollama.com/download)
+
 ## Getting Started
 
-To get started with this project, first make sure you have [Visual Studio 2022](https://visualstudio.microsoft.com/) installed. Then run the following commands:
+To get started with this project, run the following commands:
 ```bash
 git clone --recursive https://github.com/SAMSAM-55/OllamaGUI.git
 cd OllamaGUI/scripts
