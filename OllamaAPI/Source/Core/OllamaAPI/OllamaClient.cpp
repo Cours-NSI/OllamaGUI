@@ -7,7 +7,7 @@ OllamaClient::OllamaClient(const std::string& host_url)
 	std::string final_url = m_apiUrl + "/tags";
 	cpr::Response response = cpr::Get(cpr::Url{ final_url });
 
-	OL_HTTP_ASSERT(response, "HTTP request to {0} wasn't succesful and responded with code: {1}. Installing Ollama if you haven't already may fix this issue (ollama.com/download)", final_url.c_str(), response.status_code);
+	OL_HTTP_ASSERT(response, "HTTP request to {0} wasn't succesful and responded with code: {1}", final_url, response.status_code);
 
 	try
 	{

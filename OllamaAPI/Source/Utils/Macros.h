@@ -66,5 +66,5 @@
 #ifdef OL_ENABLE_ASSERT
     #define OL_HTTP_ASSERT(response, ...) {if(!(response.status_code == 200)) { OL_API_MESSAGE_ASSERT_INTERNAL(__VA_ARGS__); OL_DEBUGBREAK();}} // Assert in debug build
 #elif defined(OL_RELEASE)
-    #define OL_HTTP_ASSERT(response, ...) {if(!(response.status_code == 200)) { OL_API_MESSAGE_ASSERT_INTERNAL(__VA_ARGS__);}} // Show message box without breaking in release build
+    #define OL_HTTP_ASSERT(response, ...) {if(!(response.status_code == 200)) { OL_API_MESSAGE_ASSERT_INTERNAL(__VA_ARGS__);}} // Show message box without reaking in release build
 #endif
