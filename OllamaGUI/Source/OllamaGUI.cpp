@@ -22,12 +22,9 @@ public:
 	std::vector<OllamaChat> chatList;
 	std::vector<std::filesystem::directory_entry> chatFiles;
 	bool wasClientBusy = false;
-	OllamaCore::Log logger;
 
     OllamaGUI()
 	{
-		logger.Init();
-
 		std::string path("./chats");
 		std::string ext(".chat");
 
@@ -237,6 +234,9 @@ Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
 	Walnut::ApplicationSpecification spec;
 	spec.Name = "OllamaGUI";
 	spec.CustomTitlebar = true;
+
+	OllamaCore::Log logger;
+	logger.Init();
 
 	Walnut::Application* app = new Walnut::Application(spec);
 	std::shared_ptr<OllamaGUI> appLayer = std::make_shared<OllamaGUI>();
