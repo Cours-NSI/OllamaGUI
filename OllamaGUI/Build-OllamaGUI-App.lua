@@ -46,24 +46,24 @@ project "OllamaGUI"
 
    filter "system:windows"
       systemversion "latest"
-      defines { "WL_PLATFORM_WINDOWS" }
+      defines { "OL_PLATFORM_WINDOWS" }
       buildoptions { "/utf-8" }
 
    filter "configurations:Debug"
-      defines { "WL_DEBUG" }
+      defines { "OL_DEBUG" }
       runtime "Debug"
       symbols "On"
 
 
    filter "configurations:Release"
-      defines { "WL_RELEASE" }
+      defines { "OL_RELEASE" }
       runtime "Release"
       optimize "On"
       symbols "On"
 
    filter "configurations:Dist"
       kind "WindowedApp"
-      defines { "WL_DIST" }
+      defines { "OL_DIST" }
       runtime "Release"
       optimize "On"
       symbols "Off"

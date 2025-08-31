@@ -1,4 +1,5 @@
 #include "OllamaChat.h"
+#include "Utils/Macros.h"
 
 OllamaChat::OllamaChat(const std::string& filePath, const std::string& name)
 	:m_ChatName(name), m_path(filePath)
@@ -8,8 +9,7 @@ OllamaChat::OllamaChat(const std::string& filePath, const std::string& name)
 
 	std::ifstream file(path);
 
-	if (!file)
-		std::cerr << "[Ollama Chat Helper] Error while reading file : " << filePath << ", from dir : " << std::filesystem::current_path() << std::endl;
+	OL_ASSERT(file, "Chat file {0}(name: {1}) doesn't exit", path, name);
 
 	std::string content((std::istreambuf_iterator<char>(file)),
 						std::istreambuf_iterator<char>());
@@ -23,12 +23,14 @@ OllamaChat::OllamaChat(const std::string& filePath, const std::string& name)
 	Role currentRole;
 	std::string currentMessage;
 	std::istringstream stream(content);
+	FileInfo fileInfo;
 
 	while (std::getline(stream, line))
 	{
 		// Retrieving chat model
 		if (line.find("<Model>") != std::string::npos && state == ParsingState::NONE)
 		{
+			fileInfo.hasModel = true;
 			state = ParsingState::CHAT_MODEL;
 			continue;
 		}
@@ -41,6 +43,7 @@ OllamaChat::OllamaChat(const std::string& filePath, const std::string& name)
 		// Chat history
 		if (line.find("<Chat History>") != std::string::npos && state == ParsingState::NONE)
 		{
+			fileInfo.hasHistory = true;
 			state = ParsingState::IN_HISTORY;
 			continue;
 		}
@@ -97,6 +100,8 @@ OllamaChat::OllamaChat(const std::string& filePath, const std::string& name)
 		previousState = state;
 	}
 
+	OL_VERIFY(fileInfo.hasModel && fileInfo.hasHistory, "Chat file ({0}) is corrupted and should be removed", path)
+
 	m_ChatHistory = tempHistory;
 }
 
@@ -119,7 +124,7 @@ OllamaChat::~OllamaChat()
 	m_ChatName = base64::to_base64(m_ChatName);
 	content = base64::to_base64(content);
 
-	std::cout << "[Ollama Chat Helper] Chat path, name : " << m_path << ", " << m_ChatName << std::endl;
+	OL_INFO_TAG("Ollama Chat Helper", "Chat path, name : {0}, {1}", m_path, m_ChatName);
 	std::ofstream file(m_path + m_ChatName + ".chat");
 	file << content;
 }

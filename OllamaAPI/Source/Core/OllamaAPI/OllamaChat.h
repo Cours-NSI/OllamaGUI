@@ -48,6 +48,12 @@ public:
         std::string message;
     };
 
+    struct FileInfo
+    {
+        bool hasModel = false;
+        bool hasHistory = false;
+    };
+
     enum class ParsingState
     {
         NONE = -1,

@@ -8,11 +8,9 @@
 
 #include "Walnut/Image.h"
 #include "Walnut/UI/UI.h"
-#include "Walnut/Core/Log.h"
 
-#include "OllamaAPI/OllamaClient.h"
+#include "OllamaAPI/API.h"
 #include "Utils/OllamaUtils.hpp"
-#include "OllamaAPI/OllamaChat.h"
 
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
@@ -25,19 +23,30 @@ public:
 	std::vector<std::filesystem::directory_entry> chatFiles;
 	bool wasClientBusy = false;
 	bool debugDone = false;
+	OllamaCore::Log logger;
 
     OllamaGUI()
 	{
+		logger.Init();
+
 		std::string path("./chats");
 		std::string ext(".chat");
+
+		if (!std::filesystem::exists(path))
+			std::filesystem::create_directories(path);
+
 		for (auto& p : std::filesystem::recursive_directory_iterator(path))
 		{
 			if (p.path().extension() == ext)
 			{
-				std::cout << p.path().stem().string() << '\n';
 				chatFiles.push_back(p);
 			}
 		}
+	}
+
+	~OllamaGUI()
+	{
+
 	}
 
 	virtual void OnUIRender() override
@@ -102,18 +111,12 @@ public:
 
 			ImGui::ShowDemoWindow();
 
-			// Debug
-			if (debugDone)
-				continue;
+		}
 
-			/* Chat related debug code goes here */
-			const std::vector<OllamaChat::ChatItem>& history = chat.GetChatHistory();
-			int messageCount = history.size();
-			for (int i = messageCount - 1; i >= 0; i--)
-			{
-				std::cout << "[Ollama Client Helper] Chat message :\n" << history[i].message << std::endl;
-			}
-
+		// Debug
+		if (!debugDone)
+		{
+			OllamaChat test("./chats/", "nothing");
 			debugDone = true;
 		}
 

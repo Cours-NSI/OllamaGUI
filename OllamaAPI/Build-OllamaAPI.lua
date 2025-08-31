@@ -36,7 +36,8 @@ project "OllamaAPI"
    vpaths
    {
       ["Core/OllamaAPI"] = { "Source/Core/OllamaAPI/**.h", "Source/Core/OllamaAPI/**.cpp"},
-      ["Utils"] = { "Source/Utils/**.h", "Source/Utils/**.cpp"}
+      ["Utils"] = { "Source/Utils/**.h", "Source/Utils/**.cpp"},
+      ["Core/Log"] = { "Source/Core/Log/**.h", "Source/Core/Log/**.cpp"}
    }
 
    targetdir (".../../bin/" .. outputdir .. "/%{prj.name}")
@@ -44,22 +45,22 @@ project "OllamaAPI"
 
    filter "system:windows"
       systemversion "latest"
-      defines { "OLLAMA_PLATFORM_WINDOWS" }
+      defines { "OL_PLATFORM_WINDOWS" }
       buildoptions { "/utf-8" }
 
     filter "configurations:Debug"
-      defines { "OLLAMA_DEBUG" }
+      defines { "OL_DEBUG" }
       runtime "Debug"
       symbols "On"
 
    filter "configurations:Release"
-      defines { "OLLAMA_RELEASE" }
+      defines { "OL_RELEASE" }
       runtime "Release"
       optimize "On"
       symbols "On"
 
    filter "configurations:Dist"
-      defines { "OLLAMA_DIST" }
+      defines { "OL_DIST" }
       runtime "Release"
       optimize "On"
       symbols "Off"

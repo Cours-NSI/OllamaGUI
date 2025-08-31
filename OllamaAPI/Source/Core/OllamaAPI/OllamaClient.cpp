@@ -1,4 +1,5 @@
 #include "OllamaClient.h"
+#include "Utils/Macros.h"
 
 OllamaClient::OllamaClient(const std::string& host_url)
 	: m_apiUrl(host_url), m_modelsList({}), busy(false)
@@ -6,11 +7,7 @@ OllamaClient::OllamaClient(const std::string& host_url)
 	std::string final_url = m_apiUrl + "/tags";
 	cpr::Response response = cpr::Get(cpr::Url{ final_url });
 
-	if (response.status_code != 200)
-	{
-		std::cout << "[Ollama Client Helper] Error: status " << response.status_code << std::endl;
-		return;
-	}
+	OL_HTTP_ASSERT(response, "HTTP request to {0} wasn't succesful and responded with code: {1}", final_url, response.status_code);
 
 	try
 	{
@@ -23,7 +20,7 @@ OllamaClient::OllamaClient(const std::string& host_url)
 	}
 	catch (const std::exception& e)
 	{
-		std::cout << "[Ollama Client Helper] JSON error: " << e.what() << std::endl;
+		OL_ERROR_TAG("JSON Helper", "An error occurred during response parsing, execption : {0}", e.what());
 	}
 }
 
@@ -33,11 +30,10 @@ OllamaClient::~OllamaClient()
 
 void OllamaClient::ShowModelsList() const
 {
-	std::cout << "[Ollama Client Helper] Locally installed models:" << std::endl;
+	std::string message = "Locally installed models:\n";
 	for (const std::string& m : m_modelsList)
-	{
-		std::cout << " - " << m << std::endl;
-	}
+		message += "	- " + m + "\n";
+	OL_INFO_TAG("Ollama Client Helper", message);
 }
 
 void OllamaClient::GenerateAnswer(const OllamaChat& chat) {
@@ -60,7 +56,7 @@ void OllamaClient::GenerateAnswer(const OllamaChat& chat) {
 		{"messages", messages}
 	};
 
-	std::cout << "[Ollama Client Helper] Chat completion payload :\n" << payload << std::endl;
+	OL_INFO_TAG("Ollama Client Helper", "Chat completion payload :\n{0}", payload.dump(2));
 
 	auto callback = OllamaUtils::CreateStreamingCallback(streamingBuffer, busy);
 
