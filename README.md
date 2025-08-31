@@ -34,7 +34,6 @@ cd OllamaGUI/scripts
 ## Planned Features
 
 Planned features before beta v0.1:
-- Logging system
 - System prompt modification to customize models
 - Auto docking for `Chats List` and all chats windows
 - Locked docking layout for release builds
