@@ -32,4 +32,4 @@
 	url = https://github.com/tobiaslocker/base64
 [submodule "vendor/freetype"]
 	path = vendor/freetype
-	url = https://gihub.com/SAMSAM-55/freetype
+	url = https://github.com/SAMSAM-55/freetype
