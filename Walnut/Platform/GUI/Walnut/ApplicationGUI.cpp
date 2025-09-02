@@ -1,4 +1,4 @@
-#include "ApplicationGUI.h"
+﻿#include "ApplicationGUI.h"
 
 #include "Walnut/UI/UI.h"
 #include "Walnut/Core/Log.h"
@@ -8,6 +8,7 @@
 //
 
 #include "imgui_internal.h"
+#include "misc/freetype/imgui_freetype.h"
 
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_vulkan.h"
@@ -30,6 +31,7 @@
 #include "ImGui/Roboto-Regular.embed"
 #include "ImGui/Roboto-Bold.embed"
 #include "ImGui/Roboto-Italic.embed"
+#include "ImGui/OpenMoji.embed"
 
 extern bool g_ApplicationRunning;
 
@@ -570,8 +572,19 @@ namespace Walnut {
 		fontConfig.FontDataOwnedByAtlas = false;
 		ImFont* robotoFont = io.Fonts->AddFontFromMemoryTTF((void*)g_RobotoRegular, sizeof(g_RobotoRegular), 20.0f, &fontConfig);
 		s_Fonts["Default"] = robotoFont;
+
+		// Merge emoji font into default font
+		ImFontConfig emojiConfig;
+		emojiConfig.FontDataOwnedByAtlas = false;
+		emojiConfig.MergeMode = true;
+		emojiConfig.FontBuilderFlags |= ImGuiFreeTypeBuilderFlags_LoadColor;
+		static const ImWchar ranges[] = { 0x1, 0x1FFFF, 0 }; // emoji unicode range
+		s_Fonts["Emoji"] = io.Fonts->AddFontFromMemoryTTF((void*)g_OpenMoji, sizeof(g_OpenMoji), 35.0f, &emojiConfig, ranges);
+
 		s_Fonts["Bold"] = io.Fonts->AddFontFromMemoryTTF((void*)g_RobotoBold, sizeof(g_RobotoBold), 20.0f, &fontConfig);
 		s_Fonts["Italic"] = io.Fonts->AddFontFromMemoryTTF((void*)g_RobotoItalic, sizeof(g_RobotoItalic), 20.0f, &fontConfig);
+		
+		ImGuiFreeType::BuildFontAtlas(io.Fonts);
 		io.FontDefault = robotoFont;
 
 		// Upload Fonts

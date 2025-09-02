@@ -31,6 +31,7 @@ project "OllamaGUI"
     {
         "Walnut",
         "OllamaAPI",
+        "freetype",
          "ImGui",
          "cpr",
     }

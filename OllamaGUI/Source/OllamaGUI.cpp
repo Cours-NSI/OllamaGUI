@@ -110,7 +110,7 @@ public:
 		}
 
 		ImGui::End();
-		
+
 		UI_DrawAboutModal();
 		UI_DrawCreateChat();
 	}

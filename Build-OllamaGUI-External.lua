@@ -16,6 +16,7 @@ Library["Vulkan"] = "%{LibraryDir.VulkanSDK}/vulkan-1.lib"
 Library["cpr"] = "%{LibraryDir.cpr}/cpr.lib"
 
 group "Dependencies"
+    include "vendor/freetype"
     include "vendor/imgui"
     include "vendor/glfw"
     include "vendor/yaml-cpp"
