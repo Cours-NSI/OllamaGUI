@@ -18,7 +18,21 @@ project "ImGui"
 		"imstb_rectpack.h",
 		"imstb_textedit.h",
 		"imstb_truetype.h",
-		"imgui_demo.cpp"
+		"imgui_demo.cpp",
+		-- Files for freetype support (emoji fonts)
+		"misc/freetype/imgui_freetype.h",
+		"misc/freetype/imgui_freetype.cpp",
+	}
+
+	includedirs
+	{
+		".",
+		"../freetype/include"
+	}
+
+	links
+	{
+		"freetype"
 	}
 
 	filter "system:windows"
